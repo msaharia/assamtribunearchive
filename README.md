@@ -8,6 +8,7 @@ Very crude code. Patches are welcome.
 
 # To be implemented in the future if time permits
 
+* Optimize the file size of the PDF
 * Integration with mailchimp for daily inbox delivery
 * Parallelization of downloading images
 * Downloading old editions of the paper
