@@ -48,7 +48,7 @@ for image in imageLinks:
     r4 = requests.get(download_url, stream=True)
     if r4.status_code == 200:
         #with open(os.getcwd() + "/img/" + image.split("/")[-1], 'wb') as f:
-        with open(os.getcwd() + "/img/" + re.findall('\d+', image)[2]+".jpg", 'wb') as f:
+        with open(os.path.normpath(os.getcwd() + os.sep + os.pardir) + "/img/" + re.findall('\d+', image)[2]+".jpg", 'wb') as f:
             f.write(r4.content)
 
 #For sorting the pages by natural order
@@ -71,6 +71,6 @@ for image in imagelist:
 
 at_filedate = datetime.now(pytz.timezone('Asia/Kolkata')).strftime("%Y%m%d")
 suffix = 'pdf'    
-at_filename = os.path.join(os.getcwd(), 'pdf', at_filedate + "_assamtribune" + os.extsep + suffix)
+at_filename = os.path.join(os.path.normpath(os.getcwd() + os.sep + os.pardir), 'pdf', at_filedate + "_assamtribune" + os.extsep + suffix)
 
 pdf.output(at_filename, "F")
