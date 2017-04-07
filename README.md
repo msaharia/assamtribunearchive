@@ -6,11 +6,17 @@ v0.1 script scrapes images of Assam Tribune daily and converts in into a single 
 
 Very crude code. Patches are welcome. 
 
+# Installation
+
+    pip install --upgrade -r requirements.txt
+    python3 src/atscrape2pdf.py
+
+Set up Chron job to run everyday.
+
 # To be implemented in the future if time permits
 
 * Optimize the file size of the PDF
 * Integration with mailchimp for daily inbox delivery
-* Parallelization of downloading images
 * Downloading old editions of the paper
 * OCR the images for a search database
 
