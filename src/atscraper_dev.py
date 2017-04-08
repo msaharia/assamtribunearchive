@@ -8,7 +8,6 @@ from fpdf import FPDF #For working with PDFs
 from datetime import datetime #For naming the exported PDF file
 import pytz #For accounting for Indian Time Zone in the file name
 import re
-import erequests #For Asyncronous downloading of images
 
 r = requests.get('http://www.assamtribune.com/') #Page Response
 c = r.content #HTML content
@@ -38,30 +37,19 @@ for anchor in soup2.find_all('a', { "class" : "PTopLink" }, href=True): #Storing
                  re.split('/|\.|=', anchor['href'])[2] , 
                  'Big'+re.split('/|\.|=', anchor['href'])[3]+'.jpg'))
 
-rs = [erequests.async.get(u) for u in imageLinks]
-list(erequests.map(rs))
-
-# erequests.map will call each async request to the action
-# what returns processed request `req`
-for req in erequests.map(rs):
-    if req.ok:
-        content = req.content
-        # process it here
-        print(req.url)
-
-#for image in imageLinks:
-#    r3 =requests.get(image,stream=True)
-#    soup3 = BeautifulSoup(r3.text,"lxml")
-#    img_link = soup3.find_all("img")
-#    download_url = "http://www.assamtribune.com"
-#    for link in img_link:
-#        download_url+=link["src"][2:]
-#        break
-#    r4 = requests.get(download_url, stream=True)
-#    if r4.status_code == 200:
-#        #with open(os.getcwd() + "/img/" + image.split("/")[-1], 'wb') as f:
-#        with open(os.getcwd() + "/img/" + re.findall('\d+', image)[2]+".jpg", 'wb') as f:
-#            f.write(r4.content)
+for image in imageLinks:
+    r3 =requests.get(image,stream=True)
+    soup3 = BeautifulSoup(r3.text,"lxml")
+    img_link = soup3.find_all("img")
+    download_url = "http://www.assamtribune.com"
+    for link in img_link:
+        download_url+=link["src"][2:]
+        break
+    r4 = requests.get(download_url, stream=True)
+    if r4.status_code == 200:
+        #with open(os.getcwd() + "/img/" + image.split("/")[-1], 'wb') as f:
+        with open(os.path.normpath(os.getcwd() + os.sep + os.pardir) + "/img/" + re.findall('\d+', image)[2]+".jpg", 'wb') as f:
+            f.write(r4.content)
 
 #For sorting the pages by natural order
 
@@ -70,7 +58,7 @@ def natural_sort(l):
     alphanum_key = lambda key: [ convert(c) for c in re.split('([0-9]+)', key) ] 
     return sorted(l, key = alphanum_key)
 
-imagelist = natural_sort(glob.glob('img/*.jpg'))
+imagelist = natural_sort(glob.glob('../img/*.jpg'))
 
 #Coverting the images to PDF
 pdf = FPDF()
@@ -83,6 +71,6 @@ for image in imagelist:
 
 at_filedate = datetime.now(pytz.timezone('Asia/Kolkata')).strftime("%Y%m%d")
 suffix = 'pdf'    
-at_filename = os.path.join(os.getcwd(), 'pdf', at_filedate + "_assamtribune" + os.extsep + suffix)
+at_filename = os.path.join(os.path.normpath(os.getcwd() + os.sep + os.pardir), 'pdf', at_filedate + "_assamtribune" + os.extsep + suffix)
 
 pdf.output(at_filename, "F")
