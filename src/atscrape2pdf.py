@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 
 from bs4 import BeautifulSoup #For parsing the website
 import requests 
