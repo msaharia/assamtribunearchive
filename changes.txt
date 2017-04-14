@@ -1,3 +1,7 @@
 0.1
 
 * Initial commit
+
+0.2
+
+* Complete rewrite of the script to modularize the code into functions
