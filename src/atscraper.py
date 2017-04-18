@@ -10,12 +10,6 @@ import pytz #For accounting for Indian Time Zone in the file name
 import re
 import sys
 
-#Steps for this script
-#1 Use requests and beautiful soup to get the links of images
-#2 Download the images
-#3 Convert to one PDF
-#4 Write out the file
-
 def get_todays_homepage_url(url):
     """Gives the homepage URL to today's e-paper
     """
@@ -53,8 +47,6 @@ def get_all_image_links(dailyurl):
         'Big'+re.split('/|\.|=', anchor['href'])[3]+'.jpg'))        
     return imageLinks
 
-def delete_contents_image_folder():
-    
 
 def download_all_images(imageLinks):
     """Downloads all the images in full res
@@ -71,7 +63,7 @@ def download_all_images(imageLinks):
         if r4.status_code == 200:
             with open(os.path.normpath(os.getcwd() + os.sep + os.pardir) + "/img/" + re.findall('\d+', image)[2]+".jpg", 'wb') as f:
                 f.write(r4.content)
-
+	
 def convert_images_to_pdf(imagelist, pdftitle, pdfcreator):
     """Convert all images to PDF. 
     imagelist is the list with all image filenames.
