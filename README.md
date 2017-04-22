@@ -1,5 +1,4 @@
 # Assam Tribune Archive v0.2 <img src="logo.png" align="right" />
-![The Assam Tribune Logo](logo.png)
 
 The [Assam Tribune](http://assamtribune.com) is the largest English language daily of North-East India. But the website is prehistoric with no proper archival system.
 
