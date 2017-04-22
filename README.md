@@ -11,7 +11,9 @@ Very crude code. Patches are welcome.
     pip install --upgrade -r requirements.txt
     python3 src/atscraper.py
 
-Set up Chron job to run everyday.
+Set up Chron job to run everyday at 5:00 US CDT
+
+    00 5 * * * cd full_path_to_src_folder && ./atscraper.py
 
 # To be implemented in the future if time permits
 
