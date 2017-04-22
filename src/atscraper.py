@@ -10,6 +10,13 @@ import pytz #For accounting for Indian Time Zone in the file name
 import re
 import sys
 
+def functToDeleteItems(fullPathToDir):
+   for itemsInDir in os.listdir(fullPathToDir):
+        if os.path.isdir(os.path.join(fullPathToDir, itemsInDir)):
+            functToDeleteItems(os.path.isdir(os.path.join(fullPathToDir, itemsInDir)))
+        else:
+            os.remove(os.path.join(fullPathToDir,itemsInDir))
+
 def get_todays_homepage_url(url):
     """Gives the homepage URL to today's e-paper
     """
@@ -83,9 +90,11 @@ def convert_images_to_pdf(imagelist, pdftitle, pdfcreator):
 def main():
     """One function to rule them all.
     """
+    imd = os.path.abspath(os.path.join(os.getcwd(), os.path.pardir, "img")) #Getting the directory of existing images
+    functToDeleteItems(imd) #Deleting existing images
     y = get_todays_homepage_url("http://www.assamtribune.com/")
     z = get_all_image_links(y)
-    download_all_images(z)
+    download_all_images(z) #Download today's images
     imagelist = natural_sort(glob.glob('../img/*.jpg'))
     convert_images_to_pdf(imagelist, 'Assam Tribune Daily', 'Manabendra Saharia')
 
