@@ -2,19 +2,19 @@
 cd ..
 
 git add *
-if [[ $? != 0 ]] then 
+if [[ $? != 0 ]]; then 
    mail -s "add failed" msaharia@outlook.com
    exit 1
 fi
 
 git commit -a -m "commit message, to avoid being prompted interactively"
-if [[ $? != 0 ]] then 
+if [[ $? != 0 ]]; then 
    mail -s "commit failed" msaharia@outlook.com
    exit 1
 fi
 
 git push
-if [[ $? != 0 ]] then 
+if [[ $? != 0 ]]; then 
    mail -s "push failed" msaharia@outlook.com
    exit 1
 fi
