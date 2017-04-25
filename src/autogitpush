@@ -7,7 +7,7 @@ if [[ $? != 0 ]]; then
    exit 1
 fi
 
-git commit -a -m "commit message, to avoid being prompted interactively"
+git commit -a -m "Today's PDF"
 if [[ $? != 0 ]]; then 
    mail -s "commit failed" msaharia@outlook.com
    exit 1
